@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#050706" />
+<title>RUGRUN // RUN BEFORE THE RUG</title>
+<style>
+  *{box-sizing:border-box} html,body{margin:0;min-height:100%;background:#050706;color:#f6fff8;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden}
+  :root{--green:#58ff78;--green2:#19d94a;--red:#ff3d4f;--muted:#8c9a91;--panel:#0a0e0b;--line:#1a2a1e;--yellow:#ffe55c}
+  body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 50% -10%,rgba(88,255,120,.10),transparent 34%),linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:auto,36px 36px,36px 36px;z-index:0}
+  .wrap{position:relative;z-index:1;width:min(1180px,calc(100% - 28px));margin:auto}
+  nav{height:74px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #172019;position:relative;z-index:4}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:1000;letter-spacing:-1.5px;font-size:24px}.brandMark{width:36px;height:36px;border:2px solid var(--green);display:grid;place-items:center;transform:rotate(-5deg);box-shadow:0 0 20px rgba(88,255,120,.16)}.brandMark span{transform:rotate(5deg);font-size:20px}.ticker{font-size:12px;color:var(--green);letter-spacing:1px;border:1px solid #265d32;border-radius:999px;padding:5px 8px}
+  .navRight{display:flex;gap:10px;align-items:center}.btn{appearance:none;border:1px solid #26352a;background:#0a0e0b;color:#fff;border-radius:10px;padding:11px 16px;font-weight:900;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:.18s transform,.18s border,.18s background}.btn:hover{transform:translateY(-1px);border-color:#52705a}.btn.green{background:var(--green);color:#061008;border-color:var(--green);box-shadow:0 0 24px rgba(88,255,120,.15)}.btn.red{background:var(--red);border-color:var(--red);color:white}.btn.small{padding:9px 12px;font-size:13px}
+  .hero{text-align:center;padding:58px 0 28px}.eyebrow{font-size:12px;letter-spacing:3px;color:var(--green);font-weight:900;margin-bottom:13px}.hero h1{font-size:clamp(52px,9vw,112px);line-height:.84;margin:0;font-weight:1000;letter-spacing:-7px;text-shadow:0 0 34px rgba(88,255,120,.11)}.hero h1 span{color:var(--green)}.hero p{color:#a9b4ac;max-width:650px;margin:20px auto 0;font-size:clamp(15px,2vw,18px)}
+  .terminal{width:min(1020px,100%);margin:22px auto 0;border:1px solid #213025;border-radius:18px;background:rgba(5,8,6,.92);box-shadow:0 24px 90px rgba(0,0,0,.48),0 0 0 1px rgba(88,255,120,.025);overflow:hidden}.termTop{height:47px;border-bottom:1px solid #1b271e;display:flex;align-items:center;justify-content:space-between;padding:0 14px;color:#728078;font-family:monospace;font-size:12px}.dots{display:flex;gap:6px}.dot{width:9px;height:9px;border-radius:50%;background:#263329}.dot:nth-child(1){background:#ff4b57}.dot:nth-child(2){background:#f6d34a}.dot:nth-child(3){background:#4ae86c}
+  .gameShell{position:relative;background:#070b08;aspect-ratio:16/8.6;min-height:430px;overflow:hidden;touch-action:none;user-select:none}.gameShell canvas{width:100%;height:100%;display:block}.hud{position:absolute;inset:16px 18px auto;display:flex;justify-content:space-between;pointer-events:none;font-family:monospace;font-weight:900}.hudBox{background:rgba(3,6,4,.74);border:1px solid #203226;border-radius:8px;padding:8px 10px;backdrop-filter:blur(8px)}.hudBox b{color:var(--green);font-size:18px}.hudBox.best b{color:#fff}.status{position:absolute;top:16px;left:50%;transform:translateX(-50%);font:900 12px monospace;letter-spacing:1.3px;color:#a4afa7;background:rgba(3,6,4,.72);border:1px solid #203226;padding:8px 10px;border-radius:8px;pointer-events:none;white-space:nowrap}
+  .overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(rgba(3,5,4,.28),rgba(3,5,4,.72));padding:24px;z-index:3}.overlay.hidden{display:none}.card{text-align:center;max-width:590px}.pixelIcon{font-size:54px;filter:drop-shadow(0 0 18px rgba(88,255,120,.25));animation:bob 1.5s ease-in-out infinite}@keyframes bob{50%{transform:translateY(-6px)}}.card h2{font-size:clamp(38px,7vw,72px);line-height:.9;margin:8px 0 12px;letter-spacing:-4px}.card h2 em{font-style:normal;color:var(--green)}.card p{color:#aab4ad;margin:0 auto 20px;max-width:480px}.controls{font:800 12px monospace;color:#758179;margin-top:14px}.gameOverTitle{color:var(--red)!important;text-shadow:0 0 30px rgba(255,61,79,.24)}.finalScore{font:1000 54px monospace;color:var(--green);margin:5px 0 17px}.buttonRow{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+  .marquee{border-top:1px solid #18231b;border-bottom:1px solid #18231b;overflow:hidden;margin-top:42px;background:#080c09}.track{display:flex;width:max-content;animation:scroll 22s linear infinite;padding:12px 0;font:900 12px monospace;letter-spacing:1.5px;color:#77847b}.track span{margin:0 24px}.track .up{color:var(--green)}.track .down{color:var(--red)}@keyframes scroll{to{transform:translateX(-50%)}}
+  .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;padding:54px 0}.panel{border:1px solid #1d2a21;border-radius:16px;background:rgba(9,13,10,.8);padding:25px}.panelLabel{font:900 11px monospace;color:var(--green);letter-spacing:2px}.panel h3{font-size:31px;letter-spacing:-1.5px;margin:8px 0 11px}.panel p{color:#89968d;line-height:1.7;margin:0}.steps{display:grid;gap:10px;margin-top:17px}.step{display:flex;gap:13px;align-items:center;border:1px solid #1b2820;background:#080c09;padding:13px;border-radius:11px}.num{min-width:31px;height:31px;border-radius:8px;background:#102016;color:var(--green);display:grid;place-items:center;font:900 13px monospace}.step strong{display:block;font-size:14px}.step small{color:#7c8980}.contract{font:700 12px monospace;color:#78847c;border:1px dashed #2b3d30;border-radius:10px;padding:13px;margin-top:17px;word-break:break-all}.warning{margin-top:12px;color:#6f7a73;font-size:12px!important}.footer{border-top:1px solid #18221b;padding:24px 0 40px;color:#68736c;font-size:12px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .flash{position:absolute;inset:0;background:rgba(255,61,79,.2);opacity:0;pointer-events:none;z-index:2}.flash.go{animation:flash .25s ease-out}@keyframes flash{50%{opacity:1}}
+  @media(max-width:760px){.wrap{width:min(100% - 18px,1180px)}nav{height:62px}.brand{font-size:20px}.navRight .secondary{display:none}.hero{padding:40px 0 18px}.hero h1{letter-spacing:-4px}.terminal{border-radius:13px}.termTop{height:40px}.gameShell{aspect-ratio:auto;height:65vh;min-height:480px;max-height:650px}.hud{inset:10px 10px auto}.status{top:57px}.grid{grid-template-columns:1fr;padding:35px 0}.panel{padding:20px}.card h2{letter-spacing:-2px}.footer{padding-bottom:28px}}
+
+  /* HQ upgrade */
+  body{background:#030504}
+  .hero{position:relative}.hero:after{content:"";position:absolute;width:440px;height:160px;left:50%;top:35%;transform:translate(-50%,-50%);background:radial-gradient(ellipse,rgba(88,255,120,.14),transparent 68%);filter:blur(25px);pointer-events:none;z-index:-1}
+  .terminal{border-color:#31533a;box-shadow:0 35px 120px rgba(0,0,0,.65),0 0 70px rgba(88,255,120,.06),inset 0 1px rgba(255,255,255,.025)}
+  .gameShell:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:2;background:repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0,rgba(255,255,255,.018) 1px,transparent 1px,transparent 4px);mix-blend-mode:overlay;opacity:.25}
+  .caZone{padding:58px 0 12px}.caCard{position:relative;overflow:hidden;border:1px solid rgba(88,255,120,.45);border-radius:22px;background:linear-gradient(135deg,rgba(88,255,120,.12),rgba(6,12,8,.96) 42%,rgba(6,8,7,.98));padding:34px;box-shadow:0 0 60px rgba(88,255,120,.07),inset 0 1px rgba(255,255,255,.04)}
+  .caCard:before{content:"";position:absolute;width:260px;height:260px;right:-70px;top:-100px;border-radius:50%;background:rgba(88,255,120,.12);filter:blur(55px)}
+  .caTop{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;position:relative}.caKicker{font:900 12px monospace;letter-spacing:2.6px;color:var(--green)}.caCard h2{font-size:clamp(34px,6vw,68px);line-height:.9;letter-spacing:-3px;margin:9px 0 12px}.caCard p{margin:0;color:#91a098;max-width:690px;line-height:1.6}.livePill{font:900 11px monospace;color:#071008;background:var(--green);border-radius:999px;padding:8px 11px;white-space:nowrap;box-shadow:0 0 24px rgba(88,255,120,.22)}
+  .caAction{position:relative;margin-top:25px;display:grid;grid-template-columns:1fr auto;gap:10px}.caLink{min-width:0;text-decoration:none;border:1px solid #376944;background:#070d09;border-radius:14px;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:18px;transition:.18s transform,.18s border-color,.18s background}.caLink:hover{transform:translateY(-2px);border-color:var(--green);background:#0a130d}.caWords{min-width:0}.caWords strong{display:block;color:white;font-size:clamp(22px,4vw,42px);letter-spacing:-1.5px;line-height:1}.caWords code{display:block;color:var(--green);margin-top:9px;font:800 12px monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:780px}.caArrow{font-size:36px;color:var(--green)}.copyCA{border:1px solid #31523a;background:#0b120d;color:#fff;border-radius:14px;padding:0 21px;font-weight:1000;cursor:pointer}.copyCA:hover{border-color:var(--green)}
+  .statStrip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}.microStat{border:1px solid #17271c;border-radius:12px;background:#070b08;padding:13px 15px}.microStat small{display:block;color:#657169;font:800 10px monospace;letter-spacing:1px}.microStat b{display:block;margin-top:4px;font:900 14px monospace;color:#dfffe6}.microStat b.green{color:var(--green)}
+  @media(max-width:760px){.caZone{padding-top:36px}.caCard{padding:22px 16px;border-radius:16px}.caTop{display:block}.livePill{display:inline-block;margin-top:14px}.caAction{grid-template-columns:1fr}.copyCA{height:52px}.caLink{padding:16px}.caWords strong{font-size:29px}.caArrow{font-size:27px}.statStrip{grid-template-columns:1fr 1fr}.caWords code{max-width:70vw}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <div class="brand"><div class="brandMark"><span>🏃</span></div>RUG<span style="color:var(--green)">RUN</span><span class="ticker">$RUGRUN</span></div>
+    <div class="navRight"><a class="btn small secondary" href="#about">HOW TO PLAY</a><a class="btn small green" id="pumpTop" href="#">PUMP.FUN ↗</a></div>
+  </nav>
+  <section class="hero">
+    <div class="eyebrow">THE LIQUIDITY IS LEAVING</div>
+    <h1>RUN BEFORE<br>THE <span>RUG.</span></h1>
+    <p>A tiny degen arcade game. Jump the red candles, grab the bags, survive the chart, and definitely do not trust the dev.</p>
+  </section>
+
+  <section class="terminal">
+    <div class="termTop"><div class="dots"><i class="dot"></i><i class="dot"></i><i class="dot"></i></div><span>rugrun.exe</span><span>NETWORK: CHAOS</span></div>
+    <div class="gameShell" id="gameShell">
+      <canvas id="game"></canvas>
+      <div class="hud"><div class="hudBox">SCORE <b id="score">0000</b></div><div class="hudBox best">BEST <b id="best">0000</b></div></div>
+      <div class="status" id="status">MARKET OPEN</div>
+      <div class="flash" id="flash"></div>
+      <div class="overlay" id="startOverlay"><div class="card"><div class="pixelIcon">🤑</div><h2>DON'T GET <em>RUGGED.</em></h2><p>The chart only goes right. You should probably do the same.</p><button class="btn green" id="startBtn">▶ START RUN</button><div class="controls">SPACE / CLICK / TAP TO JUMP</div></div></div>
+      <div class="overlay hidden" id="gameOver"><div class="card"><div class="pixelIcon">💀</div><h2 class="gameOverTitle">YOU GOT RUGGED.</h2><p>The dev thanks you for your liquidity.</p><div class="finalScore" id="finalScore">0</div><div class="buttonRow"><button class="btn green" id="againBtn">↻ RUN IT BACK</button><a class="btn" id="pumpGame" href="#">VIEW $RUGRUN ↗</a></div><div class="controls" id="bestMsg"></div></div></div>
+    </div>
+  </section>
+</div>
+
+<div class="marquee"><div class="track"><span class="up">$RUGRUN +420%</span><span>DEV: "WE'RE NOT SELLING"</span><span class="down">LIQUIDITY -69%</span><span class="up">WHALE BOUGHT 12 SOL</span><span>ANON: "THIS IS THE ONE"</span><span class="down">DEV WALLET MOVED</span><span class="up">$RUGRUN +420%</span><span>DEV: "WE'RE NOT SELLING"</span><span class="down">LIQUIDITY -69%</span><span class="up">WHALE BOUGHT 12 SOL</span><span>ANON: "THIS IS THE ONE"</span><span class="down">DEV WALLET MOVED</span></div></div>
+
+<div class="wrap caZone" id="contract">
+  <section class="caCard">
+    <div class="caTop"><div><div class="caKicker">// OFFICIAL CONTRACT ADDRESS</div><h2>DON’T BUY THE WRONG RUG.</h2><p>When $RUGRUN launches, this becomes the big official contract checkpoint. Click the panel to open the verified coin page, or copy the CA directly.</p></div><span class="livePill">● CA SLOT READY</span></div>
+    <div class="caAction">
+      <a class="caLink" id="caLink" href="#" aria-label="Open official RUGRUN coin page"><span class="caWords"><strong>CLICK HERE → OFFICIAL $RUGRUN</strong><code id="caText">CA: PASTE_OFFICIAL_CA_HERE</code></span><span class="caArrow">↗</span></a>
+      <button class="copyCA" id="copyCA">COPY CA</button>
+    </div>
+    <div class="statStrip"><div class="microStat"><small>TICKER</small><b class="green">$RUGRUN</b></div><div class="microStat"><small>NETWORK</small><b>SOLANA</b></div><div class="microStat"><small>GAME</small><b>FREE TO PLAY</b></div><div class="microStat"><small>STATUS</small><b class="green">READY TO RUN</b></div></div>
+  </section>
+</div>
+
+<div class="wrap" id="about">
+  <section class="grid">
+    <div class="panel"><div class="panelLabel">// LORE</div><h3>THE CHART IS TRYING TO KILL YOU.</h3><p>$RUGRUN is a meme-themed browser game about doing the one thing every degen eventually learns: running from the rug. The game is free to play and your score has no connection to token ownership, rewards, or financial returns.</p><div class="contract">Official CA appears in the large verified panel above after launch.</div><p class="warning">Meme token. No promises of profit or utility. Crypto assets can lose value quickly. Verify links and contract addresses independently.</p></div>
+    <div class="panel"><div class="panelLabel">// HOW TO PLAY</div><h3>ONE BUTTON. BAD DECISIONS.</h3><div class="steps"><div class="step"><div class="num">01</div><div><strong>CLICK / TAP / SPACE</strong><small>Jump over the red candles.</small></div></div><div class="step"><div class="num">02</div><div><strong>GRAB THE BAGS</strong><small>Green bags add bonus points.</small></div></div><div class="step"><div class="num">03</div><div><strong>DON'T GET RUGGED</strong><small>The chart gets faster the longer you survive.</small></div></div></div></div>
+  </section>
+  <footer class="footer"><span>© 2026 RUGRUN. MADE FOR THE TIMELINE.</span><span>RUN BEFORE THE LIQUIDITY DOES.</span></footer>
+</div>
+
+<script>
+// ===== RUGRUN LAUNCH CONFIG =====
+// Send the official CA + pump.fun URL and replace only these two values.
+const RUGRUN_CA = "PASTE_OFFICIAL_CA_HERE";
+const RUGRUN_COIN_URL = "#";
+
+(() => {
+  const caText=document.getElementById('caText'), caLink=document.getElementById('caLink'), copyCA=document.getElementById('copyCA');
+  caText.textContent='CA: '+RUGRUN_CA; caLink.href=RUGRUN_COIN_URL;
+  copyCA.addEventListener('click', async()=>{ try{await navigator.clipboard.writeText(RUGRUN_CA);copyCA.textContent='COPIED ✓';setTimeout(()=>copyCA.textContent='COPY CA',1300)}catch(e){copyCA.textContent='COPY FAILED'} });
+  const canvas = document.getElementById('game'), ctx = canvas.getContext('2d');
+  const shell = document.getElementById('gameShell');
+  const scoreEl = document.getElementById('score'), bestEl = document.getElementById('best');
+  const startOverlay = document.getElementById('startOverlay'), over = document.getElementById('gameOver');
+  const statusEl = document.getElementById('status'), finalScore = document.getElementById('finalScore'), bestMsg = document.getElementById('bestMsg'), flash = document.getElementById('flash');
+  let W=900,H=480,dpr=1, running=false, dead=false, last=0, score=0, speed=330, spawn=0, bagSpawn=0, elapsed=0;
+  let best = Number(localStorage.getItem('rugrunBest')||0); bestEl.textContent=String(best).padStart(4,'0');
+  let obstacles=[], bags=[], particles=[], candles=[];
+  const player={x:105,y:0,w:42,h:50,vy:0,onGround:true};
+  const statuses=['MARKET OPEN','WHALE INCOMING','DEV IS TYPING...','HOLDERS +1','CT IS BULLISH','LIQUIDITY LOOKS FINE','PROBABLY NOTHING'];
+  function resize(){const r=shell.getBoundingClientRect();dpr=Math.min(devicePixelRatio||1,2);W=r.width;H=r.height;canvas.width=W*dpr;canvas.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);player.y=ground()-player.h}
+  function ground(){return H-66}
+  window.addEventListener('resize',resize); resize();
+  function reset(){score=0;speed=330;spawn=0;bagSpawn=1;elapsed=0;obstacles=[];bags=[];particles=[];candles=[];player.y=ground()-player.h;player.vy=0;player.onGround=true;dead=false;statusEl.textContent='MARKET OPEN';scoreEl.textContent='0000'}
+  function start(){reset();startOverlay.classList.add('hidden');over.classList.add('hidden');running=true;last=performance.now();requestAnimationFrame(loop)}
+  function jump(){if(!running)return;if(player.onGround){player.vy=-Math.max(650,H*1.22);player.onGround=false;burst(player.x+18,player.y+player.h,8,'#58ff78')}}
+  function burst(x,y,n,color){for(let i=0;i<n;i++)particles.push({x,y,vx:(Math.random()-.5)*180,vy:(Math.random()-.8)*180,life:.5+Math.random()*.35,color})}
+  function obstacle(){let h=38+Math.random()*45,w=26+Math.random()*23;obstacles.push({x:W+30,y:ground()-h,w,h})}
+  function bag(){bags.push({x:W+30,y:ground()-80-Math.random()*95,r:16,spin:Math.random()*6.28})}
+  function collide(a,b){return a.x+7<b.x+b.w && a.x+a.w-7>b.x && a.y+7<b.y+b.h && a.y+a.h-4>b.y}
+  function die(){running=false;dead=true;flash.classList.remove('go');void flash.offsetWidth;flash.classList.add('go');burst(player.x+20,player.y+20,24,'#ff3d4f');let s=Math.floor(score);if(s>best){best=s;localStorage.setItem('rugrunBest',best);bestMsg.textContent='NEW LOCAL HIGH SCORE — ABSOLUTE DEGEN';}else bestMsg.textContent='BEST: '+best+' — YOUR BAGS REMEMBER';bestEl.textContent=String(best).padStart(4,'0');finalScore.textContent=s;setTimeout(()=>over.classList.remove('hidden'),350);draw()}
+  function loop(t){if(!running)return;let dt=Math.min((t-last)/1000,.032);last=t;update(dt);draw();requestAnimationFrame(loop)}
+  function update(dt){elapsed+=dt;score+=dt*10;speed=Math.min(720,330+elapsed*8);scoreEl.textContent=String(Math.floor(score)).padStart(4,'0');
+    player.vy+=1800*dt;player.y+=player.vy*dt;if(player.y>=ground()-player.h){player.y=ground()-player.h;player.vy=0;player.onGround=true}
+    spawn-=dt;if(spawn<=0){obstacle();spawn=Math.max(.62,1.25-elapsed*.008)+Math.random()*.45}
+    bagSpawn-=dt;if(bagSpawn<=0){bag();bagSpawn=1.6+Math.random()*2.1}
+    if(Math.random()<dt*1.8)candles.push({x:W+20,w:3+Math.random()*5,h:20+Math.random()*90,green:Math.random()>.43,base:ground()+16});
+    candles.forEach(c=>c.x-=speed*.42*dt);candles=candles.filter(c=>c.x>-20);
+    obstacles.forEach(o=>o.x-=speed*dt);bags.forEach(b=>{b.x-=speed*dt;b.spin+=dt*4});particles.forEach(p=>{p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=450*dt;p.life-=dt});particles=particles.filter(p=>p.life>0);
+    for(const o of obstacles)if(collide(player,o))return die();obstacles=obstacles.filter(o=>o.x>-80);
+    bags=bags.filter(b=>{let cx=player.x+player.w/2,cy=player.y+player.h/2;if(Math.hypot(cx-b.x,cy-b.y)<35){score+=50;burst(b.x,b.y,12,'#ffe55c');return false}return b.x>-40});
+    if(Math.floor(elapsed)%7===0 && Math.floor((elapsed-dt))%7!==0)statusEl.textContent=statuses[Math.floor(Math.random()*statuses.length)];
+  }
+  function draw(){ctx.clearRect(0,0,W,H);let grd=ctx.createLinearGradient(0,0,0,H);grd.addColorStop(0,'#07100a');grd.addColorStop(1,'#030504');ctx.fillStyle=grd;ctx.fillRect(0,0,W,H);
+    ctx.strokeStyle='rgba(88,255,120,.055)';ctx.lineWidth=1;for(let x=0;x<W;x+=44){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}for(let y=0;y<H;y+=44){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
+    candles.forEach(c=>{ctx.fillStyle=c.green?'rgba(88,255,120,.22)':'rgba(255,61,79,.20)';ctx.fillRect(c.x,c.base-c.h,c.w,c.h);ctx.fillRect(c.x-3,c.base-c.h*.7,c.w+6,Math.max(10,c.h*.25))});
+    ctx.strokeStyle='#1d3424';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(0,ground()+1);ctx.lineTo(W,ground()+1);ctx.stroke();ctx.fillStyle='#09110b';ctx.fillRect(0,ground()+2,W,H-ground());
+    obstacles.forEach(o=>{ctx.fillStyle='#ff3d4f';ctx.fillRect(o.x,o.y,o.w,o.h);ctx.fillStyle='#ff7884';ctx.fillRect(o.x+o.w*.42,o.y-16,3,16);ctx.fillStyle='#5b1018';ctx.fillRect(o.x+4,o.y+5,o.w-8,4)});
+    bags.forEach(b=>{ctx.save();ctx.translate(b.x,b.y);ctx.rotate(Math.sin(b.spin)*.12);ctx.fillStyle='#ffe55c';ctx.beginPath();ctx.arc(0,0,b.r,0,Math.PI*2);ctx.fill();ctx.fillStyle='#3c3300';ctx.font='900 18px monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('$',0,1);ctx.restore()});
+    ctx.save();ctx.translate(player.x,player.y);ctx.fillStyle='#58ff78';ctx.fillRect(5,9,30,30);ctx.fillStyle='#d9ffe0';ctx.fillRect(10,3,22,12);ctx.fillStyle='#050706';ctx.fillRect(23,7,5,5);ctx.fillStyle='#58ff78';ctx.fillRect(0,35,16,8);ctx.fillRect(29,35,16,8);ctx.fillStyle='#ffe55c';ctx.fillRect(34,18,9,6);ctx.restore();
+    particles.forEach(p=>{ctx.globalAlpha=Math.max(0,p.life*2);ctx.fillStyle=p.color;ctx.fillRect(p.x,p.y,4,4);ctx.globalAlpha=1});
+  }
+  document.getElementById('startBtn').onclick=start;document.getElementById('againBtn').onclick=start;
+  shell.addEventListener('pointerdown',e=>{if(e.target.closest('button,a'))return;jump()});window.addEventListener('keydown',e=>{if(e.code==='Space'||e.code==='ArrowUp'){e.preventDefault();if(!running&&!dead)start();else jump()}});
+  // Replace this once the token is live.
+  const PUMP_URL='#'; ['pumpTop','pumpGame'].forEach(id=>document.getElementById(id).addEventListener('click',e=>{if(PUMP_URL==='#'){e.preventDefault();alert('Add the official pump.fun URL in the PUMP_URL variable after launch.')}}));
+  draw();
+})();
+</script>
+</body>
+</html>
